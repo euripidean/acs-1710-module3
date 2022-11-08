@@ -7,7 +7,16 @@ Compliments Results
 {% block content %}
 
 <!-- Your HTML code goes here! -->
+<p>Hi there, {{users_name}}!</p>
 
-
-
+{% if compliments|length > 0 %}
+<h3>We're going to celebrate all things {{users_name}}!</h3>
+<p><strong>Here we go:</strong></p>
+{% for compliment in compliments %}
+<p>{{users_name}} is {{compliment}}!</p><br>
+{% endfor %}
+<p>Hope you feel better about yourself {{users_name}}.</p>
+{% else %}
+<p>You chose to receive no compliments. Way to go with your self-esteem!</p>
+{% endif %}
 {% endblock %}
