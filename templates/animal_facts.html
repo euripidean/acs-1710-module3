@@ -12,28 +12,29 @@ Animal Facts
 
         <label>
             Which animal do you want facts on?
-
-            <!-- TODO: Use a for loop to show one option element for each 
-                animal. -->
-            <select name="animal">
-                <option value="koala">koala</option>
+            <select name="animals">
+                {% set count = namespace(value=0) %}
+                {% for animal in animals %}
+                    <option value={{count.value}}>{{animal}}</option>
+                    {% set count.value = count.value + 1 %}
+                {% endfor %}
             </select>
         </label>
-
+        
         <input type="submit" value="Get Fact!">
     </fieldset>
 </form>
-
-<!-- TODO: If an animal was chosen, show the section below with the appropriate 
-    animal fact. -->
-
 <section id="form_results">
+    {% if result is not none %}
     <p>
-        Here is your animal fact:
+        <strong>Here is your animal fact:</strong><br>
+        {{result}}
     </p>
+    {% else %}
     <p>
-        <em>Your animal fact goes here.</em>
+    Please choose an animal to see a fact about them!
     </p>
+    {% endif %}
 </section>
 
 {% endblock %}
