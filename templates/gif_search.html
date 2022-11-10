@@ -37,10 +37,13 @@ Gif Search
     <!-- TODO: Use a for loop to show each GIF separately in an img tag (and place each one in a 
         separate p tag to show on separate lines). You can get the GIF's image URL by using: 
         gif['media'][0]['gif']['url'] -->
-
+        {% set i = namespace(value=0) %}
+        {% for gif in gifs %}
     <p>
-        <img src="https://your/gif/url/goes/here" alt="GIF">
+        <img src="{{gifs[i.value]['media_formats']['gif']['url']}}" alt="GIF">
     </p>
+        {% set i.value = i.value + 1 %}
+        {% endfor %}
 </section>
 
 {% endblock %}

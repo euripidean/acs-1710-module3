@@ -189,27 +189,25 @@ API_KEY with a value that is the api key for your account. """
 API_KEY = os.getenv('API_KEY')
 print(API_KEY)
 
-TENOR_URL = 'https://api.tenor.com/v1/search'
+TENOR_URL = "https://tenor.googleapis.com/v2/search?"
 pp = PrettyPrinter(indent=4)
 
 @app.route('/gif_search', methods=['GET', 'POST'])
 def gif_search():
     """Show a form to search for GIFs and show resulting GIFs from Tenor API."""
     if request.method == 'POST':
-        # TODO: Get the search query & number of GIFs requested by the user, store each as a 
-        # variable
+        query = request.form.get('search_query')
+        number = request.form.get('quantity')
 
         response = requests.get(
-            TENOR_URL,
-            {
-                # TODO: Add in key-value pairs for:
-                # - 'q': the search query
-                # - 'key': the API key (defined above)
-                # - 'limit': the number of GIFs requested
+        TENOR_URL, {
+                'q': query,
+                'key': API_KEY,
+                'limit': number,
             })
 
         gifs = json.loads(response.content).get('results')
-
+        
         context = {
             'gifs': gifs
         }
